@@ -1,0 +1,195 @@
+package com.example.assignment2
+
+class GameActivity : AppCompatActivity() {
+}
+
+override fun onCreate(savedInstanceState: Bundle?) {
+
+super.onCreate(savedInstanceState)
+
+setContentView(R.layout.activity_game)
+
+val petImageView = findViewById<ImageView>(R.id.petImageView)
+
+val feedButton = findViewById<Button>(R.id.feedButton)
+
+val cleanButton = findViewById<Button>(R.id.cleanButton)
+
+val playButton = findViewById<Button>(R.id.playButton)
+
+val feedTextView = findViewById<TextView>(R.id.feedTextView)
+
+val cleanTextView = findViewById<TextView>(R.id.cleanTextView)
+
+val playTextView = findViewById<TextView>(R.id.playTextView)
+
+// Retrieve the message passed from the first screen
+
+val feedMessage = intent.getStringExtra("FEED_MESSAGE")
+
+// Set the text of the feed TextView to the feed message
+
+feedTextView.text = feedMessage
+
+// Logic for the Feed button
+
+feedButton.setOnClickListener {
+
+// Change the pet's image to match feeding action icon
+
+petImageView.setImageResource(R.drawable.image_4658)
+
+// Update the pet's status values (e.g., health, hunger, cleanliness)
+
+// Update the feed TextView
+
+feedTextView.text = getString(R.string.feed_thank_you)
+
+// Update the play TextView
+
+playTextView.text = getString(R.string.play_with_me)
+
+}
+
+// Logic for the Clean button
+
+cleanButton.setOnClickListener {
+
+// Change the pet's image to match cleaning action icon
+
+petImageView.setImageResource(R.drawable.image_4867)//your picture name here
+
+// Update the pet's status values (e.g., health, hunger, cleanliness)
+
+// Update the clean textview
+
+cleanTextView.text = getString(R.string.clean_nice_and_clean)
+
+}
+
+// Logic for the Play button
+
+playButton.setOnClickListener {
+
+// Change the pet's image to match playing action icon
+
+petImageView.setImageResource(R.drawable.image_4659)//your picture name here
+
+// Update the pet's status values (e.g., health, hunger, cleanliness)
+
+// Update the play TextView
+
+playTextView.text = getString(R.string.play_that_was_fun)
+
+// Update the clean textview
+
+cleanTextView.text = getString(R.string.clean_after_playing)
+
+}
+
+}
+
+For good programming practice, text has to be added to the strings.xml file. Example:
+
+<!-- strings.xml -->
+
+<resources>
+
+<!-- Feed Button Text -->
+
+<string name="feed_button_text">Feed</string>
+
+<!-- Feed Message -->
+
+<string name="feed_message">Thank you, I have eaten enough!</string>
+
+<!-- Play Button Text -->
+
+<string name="play_button_text">Play</string>
+
+<!-- Play Message -->
+
+<string name="play_message">Please play with me!</string>
+
+<!-- Clean Button Text -->
+
+<string name="clean_button_text">Clean</string>
+
+<!-- Clean Message -->
+
+<string name="clean_message">All this playing made me dirty. Please wash me?</string>
+
+<!-- Cleaned Message -->
+
+<string name="cleaned_message">Nice and clean, I am going to take a nap now. see you later!</string>
+</resources>
+
+private late init var feedProgressBar: ProgressBar
+
+private late init var playProgressBar: ProgressBar
+
+private late init var cleanProgressBar: ProgressBar
+
+private var feedProgressStatus: Int = 0
+
+private var playProgressStatus: Int = 0
+
+private var cleanProgressStatus: Int = 0
+
+override fun onCreate(savedInstanceState: Bundle?) {
+
+super.onCreate(savedInstanceState)
+
+setContentView(R.layout.activity_game)
+
+feedProgressBar = findViewById(R.id.feedProgressBar)
+
+playProgressBar = findViewById(R.id.playProgressBar)
+
+cleanProgressBar = findViewById(R.id.cleanProgressBar)
+
+val feedButton = findViewById<Button>(R.id.feedButton)
+
+val cleanButton = findViewById<Button>(R.id.cleanButton)
+
+val playButton = findViewById<Button>(R.id.playButton)
+
+feedButton.setOnClickListener {
+
+feedProgressStatus = 0
+
+feedProgressBar.progress = feedProgressStatus
+
+Thread(Runnable {
+
+while (feedProgressStatus < 100) {
+
+feedProgressStatus += 5
+
+Thread.sleep(1000)
+
+runOnUiThread {
+
+feedProgressBar.progress = feedProgressStatus
+
+}
+
+}
+
+runOnUiThread {
+
+// Update feedTextView message
+
+}
+
+}).start()
+
+}
+
+
+
+
+
+
+
+
